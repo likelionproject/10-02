@@ -10,7 +10,7 @@
     <div class="logo">
         <a href="/">
             <span class="fa fa-home marker"></span>
-            <span class="logoText">홈으로</span>
+            <span class="logoText">홈</span>
         </a>
     </div>
     <a href="#" class="navHandler"><span class="fa fa-bars"></span></a>
@@ -44,13 +44,19 @@
                 </div>
                 <div class="clearfix"></div>
             </a>
+            
+            
             <div class="dropdown-menu pull-right userMenu" role="menu">
                 <div class="mobAvatar">
                     <img class="avatar mobAvatarImg" src="/images/performance.png" alt="avatar">
                     <div class="mobAvatarName">사용자 이름</div>
                 </div>
+                
+                
+                
+                
+                
                 <ul>
-                    <li><a href="#ttings">설정<li>
                     
                     <% if current_user.typenum == 0 %>
                         <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
@@ -76,6 +82,10 @@
                     <li><%= link_to "로그아웃", destroy_user_session_path %></li>
                 </ul>
             </div>
+            
+            
+            
+            
         <% end %>
     </div>
     <!--맨위에 알람하고 사용자 설정 끝-->
