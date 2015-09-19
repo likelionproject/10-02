@@ -188,7 +188,7 @@
                 <% if current_user.performanceinfo.nil? %>
                     <script>
                         alert("공연자 정보를 먼저 등록해주세요. ");
-                        window.location.replace("http://alone-likelionproject.c9.io/culture/pfupload");
+                        window.location.replace("http://jjunn.net/culture/pfupload");
                     </script>
                 <% else %>
                     <input type="hidden" name="performanceinfo_id" value="<%= current_user.performanceinfo.id %>">

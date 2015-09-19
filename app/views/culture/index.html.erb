@@ -82,7 +82,7 @@
                             <div class="priceCap osLight"><span> <%=p.pf_title%> </span></div>
                             
                             <div class="figType">공연 중 </div>
-                            <h3 class="osLight"><%=p.pf_date%> <%=p.pf_time_start%>~<%=p.pf_time_end%> <br> <%=p.pf_address_sub %></h3>
+                            <h3 class="osLight"><%=p.pf_time_start.strftime("%Y/%m/%d %H:%M") %>~<%=p.pf_time_end.strftime("%Y/%m/%d %H:%M")%> <br> <%=p.pf_address_sub %></h3>
                             
                             <div class="like_cap osLight">
                                 <span class="icon-heart"></span>
@@ -284,8 +284,8 @@
                     <div class="field">
                         <div class="form-group"> 
                             <div class="btn-group-justified">
-                                <button type="button" class="btn btn-lg btn-blue" id="select_viewer" style="width: 50%; display: inline;" onclick="setViewer()">관객</button>
-                                <button type="button" class="btn btn-lg btn-info" id="select_performer" style="width: 50%; display: inline;" onclick="setPerformer()">공연팀</button>
+                                <button type="button" class="btn btn-lg btn-blue" id="select_viewer" style="width: 48%; display: inline;" onclick="setViewer()">관객</button>
+                                <button type="button" class="btn btn-lg btn-info" id="select_performer" style="width: 48%; display: inline;" onclick="setPerformer()">공연팀</button>
                             </div>
                         </div>
                     </div>
