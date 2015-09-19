@@ -489,7 +489,7 @@ video {
 .logo a span {
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+    transition: all .0s ease-in-out;
 }
 .logo.expanded a span {
     -webkit-transition: none;
@@ -1822,12 +1822,30 @@ a.card, div.card {
     -webkit-transition-delay: 0.15s;
     transition-delay: 0.15s;
 }
-.no-touch a.card:hover .figure .figCaption > span:nth-child(2), .no-touch div.card:hover .figure .figCaption > span:nth-child(2) {
+.no-touch a.card:hover .figure .figCaption > span:nth-child(2), .no-t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ouch div.card:hover .figure .figCaption > span:nth-child(2) {
     -webkit-transition-delay: 0.2s;
     transition-delay: 0.2s;
 }
 .figType {
-    background-color: #eab134;
+    background-color: #5bc0de;
     font-size: 10px;
     line-height: 11px;
     color: #fff;

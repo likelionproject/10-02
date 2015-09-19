@@ -6,7 +6,7 @@ class S3uploaderUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
   include CarrierWave::MiniMagick
-  process resize_to_fit: [300, 700]
+  process resize_to_fit: [200, 250]
   # Choose what kind of storage to use for this uploader:
   storage :fog
   # storage :fog

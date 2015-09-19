@@ -243,20 +243,20 @@
                         </div>
                         <!--좋아요 수-->
                         <div class="row">
-                            <div class="col-xs-offset-4 col-xs-4 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4">
+                            <div class="col-xs-offset-4 col-xs-6 col-sm-offset-4 col-sm-6 col-md-offset-4 col-md-6">
                                 <div class="favLink">
                                     <% unless current_user.nil? %>
                                         <% if current_user.voted_up_on? @pid %>
                                             
-                                            <a href="#" id="like_vote"><i class="fa fa-thumbs-up fa-2x state-active"></i></a>&nbsp;&nbsp;<span id="like_num" style="font-size:20px;"><%=@pid.get_likes.size%></span><br>
-                                            <span style="font-size:20px;"></span>
+                                            <a href="#" id="like_vote"><i class="fa fa-thumbs-up fa-3x state-active"></i></a>&nbsp;&nbsp;<span id="like_num" style="font-size:30px;"><%=@pid.get_likes.size%></span><br>
+                                            <span style="font-size:30px;"></span>
                                         <% else %>
-                                            <a href="#" id="like_vote"><i class="fa fa-thumbs-o-up fa-2x state-active"></i></a>&nbsp;&nbsp;<span id="like_num" style="font-size:20px;"><%=@pid.get_likes.size%></span><br>
-                                            <span style="font-size:20px;"></span>
+                                            <a href="#" id="like_vote"><i class="fa fa-thumbs-o-up fa-3x state-active"></i></a>&nbsp;&nbsp;<span id="like_num" style="font-size:30px;"><%=@pid.get_likes.size%></span><br>
+                                            <span style="font-size:30px;"></span>
                                         <% end %>
                                     <% else %>
-                                            <a href="#" id="like_vote"><i class="fa fa-thumbs-o-up fa-2x state-active"></i></a>&nbsp;&nbsp;<span id="like_num" style="font-size:20px;"><%=@pid.get_likes.size%></span><br>
-                                            <span style="font-size:20px;"></span>
+                                            <a href="#" id="like_vote"><i class="fa fa-thumbs-o-up fa-3x state-active"></i></a>&nbsp;&nbsp;<span id="like_num" style="font-size:30px;"><%=@pid.get_likes.size%></span><br>
+                                            <span style="font-size:30px;"></span>
                                     <% end %>
                                 </div><br>
                             </div>
@@ -301,10 +301,6 @@
             <h3>최근 공연 기록</h3>
             <!-- carousel for medium & large devices -->
             <div id="carouselSimilar-1" class="carousel slide visible-lg carousel-col">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselSimilar-1" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselSimilar-1" data-slide-to="1"></li>
-                </ol>
                 <div class="carousel-inner"> 
                     <div class="item active">
                         <div class="row">
@@ -325,8 +321,6 @@
                          </div>
                     </div>
                 </div>
-                <a class="left carousel-control" href="#carouselSimilar-1" role="button" data-slide="prev"><span class="fa fa-chevron-left"></span></a>
-                <a class="right carousel-control" href="#carouselSimilar-1" role="button" data-slide="next"><span class="fa fa-chevron-right"></span></a>
             </div>
         </div>
                             <!--지나간 공연 정보 띄우는거 끝-->

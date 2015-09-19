@@ -190,28 +190,15 @@
                             <input type="string" class="form-control" name="new_pf_title" value="<%= @pid.pf_title %>">
                         </div>
                     </div>
-                    
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                         <div class="form-group">
-                            <label>시작 시간</label>
-                            <div class="input-group bootstrap-timepicker timepicker">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                <input id="timepicker1" type="text" class="form-control input-small" name="new_pf_time_start" value="<%= @pid.pf_time_start %>">
-                            </div>
-
-                            <script type="text/javascript">
-                                $('#timepicker1').timepicker();
-                            </script>
-                            <label>종료 시간</label>
-                            <div class="input-group bootstrap-timepicker timepicker">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                <input id="timepicker2" type="text" class="form-control input-small" name="new_pf_time_end" value="<%= @pid.npf_time_end %>">
-                            </div>
-
-                            <script type="text/javascript">
-                                $('#timepicker2').timepicker();
-                            </script>
-                        </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <label for="pf_time_start">시작 시간</label>
+                        <input id="pf_datetime_input_start" type="text" class="form-control" required>
+                        <input id="pf_datetime_form_start" type="hidden" name="pf_time_start" class="form-control" required>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <label for="pf_time_end">종료 시간</label>
+                        <input id="pf_datetime_input_end" type="text" class="form-control" required>
+                        <input id="pf_datetime_form_end" type="hidden" name="pf_time_end" class="form-control" required>
                     </div>
                 </div>
                 <br>

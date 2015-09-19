@@ -5,26 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <% unless @pid.nil? %>
-      <meta property="og:url"  content="http://alone-likelionproject.c9.io/culture/single/<%=@pid.id%>" />
-      <meta property="og:type"          content="website" />
-      <meta property="og:title"         content="<%=@pid.pf_title%>" />
-      <meta property="og:description"   content="자세한 정보는 클릭해주세요." />
-      <meta property="og:image"         content="<%=@pid.pf_image%>" />
-    <% end %>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     
     <title>뭐한대?!</title>
-<link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+    <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+    <link rel="icon" type="image/jpg" href="/images/guitarheader.jpg">
     
-    
-    
-    <link rel="icon" type="image/png" href="/images/guitar_favicon.png">
-    
-    
-
-
     <link rel='stylesheet' href='http://fonts.googleapis.com/earlyaccess/jejugothic.css'>
     <link href="/css/font-awesome.css" rel="stylesheet">
     <link href="/css/simple-line-icons.css" rel="stylesheet">
@@ -33,7 +20,7 @@
     <link href="/css/app.css" rel="stylesheet">
     
     
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=geometry&amp;libraries=places" type="text/javascript"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=geometry&amp;libraries=places&key=AIzaSyDf12V_tv3Wi6XpwxIB7wMDyUseKJo8PfY" type="text/javascript"></script>
     <script src="/js/infobox.js"></script>
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/bootstrap.js"></script>
@@ -42,9 +29,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <%= stylesheet_link_tag    'application', async: true, cache: true, media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', async: true, cache: true, 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', async: true, cache: true, media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', async: true, cache: true, 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
    
 </head>
 <body>

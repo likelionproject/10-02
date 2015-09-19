@@ -175,20 +175,21 @@
             /* 새 marker 추가 */
             marker = addMarkers(event.latLng, map);
             // map.setCenter(event.latLng);
-          
+            
             /* input form #mapdata-lat #mapdata-lng 에 위도 경도 등록 */
             if (document.getElementById('mapdata-lat') != null && document.getElementById('mapdata-lng') != null ){
-              document.getElementById('mapdata-lat').setAttribute('value', marker.getPosition().G);
-              document.getElementById('mapdata-lng').setAttribute('value', marker.getPosition().K);
+              document.getElementById('mapdata-lat').setAttribute('value', event.latLng.lat());
+              document.getElementById('mapdata-lng').setAttribute('value', event.latLng.lng());
             }
             else {
-              $('#input_form').append("<input id='mapdata-lat' type='hidden' name='pf_add_lat' value='"+ marker.getPosition().G +"' />");
-              $('#input_form').append("<input id='mapdata-lng' type='hidden' name='pf_add_lng' value='"+ marker.getPosition().K +"' />");
+              $('#input_form').append("<input id='mapdata-lat' type='hidden' name='pf_add_lat' value='"+ event.latLng.lat() +"' />");
+              $('#input_form').append("<input id='mapdata-lng' type='hidden' name='pf_add_lng' value='"+ event.latLng.lng() +"' />");
             }
             
             /* 주소 등록하기 */
-            $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + marker.getPosition().G + "," + marker.getPosition().K + "&language=ko&sensor=false", 
+            $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&language=ko&sensor=false&key=AIzaSyCSKQCY9A2iun_28RpyYUUmVQ-o_wZzfFY", 
               function(data){
+                console.log(marker.getPosition().G);
                 /* 정확한 data */
                 $("#address").attr("value", data.results[0].address_components[3].long_name + " " + data.results[0].address_components[2].long_name 
                 + " " + data.results[0].address_components[1].long_name + " " + data.results[0].address_components[0].long_name  );

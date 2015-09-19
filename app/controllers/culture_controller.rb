@@ -40,9 +40,11 @@ class CultureController < ApplicationController
         hello.pf_add_lat = params[:pf_add_lat]
         hello.pf_add_lng = params[:pf_add_lng]
         hello.pf_image = params[:pf_image]
+        
+        hello.pf_time_start = Time.parse(params[:pf_time_start]);
+        hello.pf_time_end = Time.parse(params[:pf_time_end]);
+        
         hello.pf_date = params[:dt_due]
-        hello.pf_time_start = params[:pf_time_start]
-        hello.pf_time_end = params[:pf_time_end]
         
         hello.pf_kind = params[:pf_kind].to_i
         hello.save
@@ -174,8 +176,8 @@ class CultureController < ApplicationController
         @pid.pf_image = params[:new_pf_image]
         @pid.pf_date = params[:new_dt_due]
         @pid.pf_time = params[:new_pf_time]
-        @pid.pf_time_start = params[:new_pf_time_start]
-        @pid.pf_time_end = params[:new_pf_time_end]
+        @pid.pf_time_start = Time.parse(params[:pf_time_start])
+        @pid.pf_time_end = Time.parse(params[:pf_time_end])
         
         @pid.pf_kind = params[:pf_kind].to_i
 
@@ -224,10 +226,11 @@ class CultureController < ApplicationController
     
     
     def category_newpf
-        unless params[:pType] == "all"
-            @posts = Newpf.where(:pf_kind => params[:pType]).order("newpfs.pf_date asc").as_json
+        type_num = params[:pType]
+        if type_num != "all"
+            @posts = Newpf.where(:pf_kind => type_num).order("newpfs.pf_date asc").as_json
         else
-            @posts = Newpf.all.order("newpfs.pf_date asc").as_json
+            @posts = Newpf.all.as_json
         end
         
         respond_to do |format|

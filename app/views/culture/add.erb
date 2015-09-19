@@ -1,5 +1,4 @@
 <!-- 공연 등록 페이지 입니다 -->
-
 <script>
     $(document.body).attr("class", "notransition");
 </script>
@@ -202,53 +201,19 @@
                         </div>
                     </div>
                 </div>
-                    
+                <link rel="stylesheet" type="text/css" href="/datetimepicker/jquery.datetimepicker.css"/ >
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                         <div class="form-group">
-                            <label>시작 시간</label>
-                            <div class="input-group bootstrap-timepicker timepicker">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                <input id="timepicker1" type="text" class="form-control input-small" name="pf_time_start">
-                            </div>
-                            <script>
-                                $('#timepicker1').timepicker();    
-                            </script>
-                        </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <label for="pf_time_start">시작 시간</label>
+                        <input id="pf_datetime_input_start" type="text" class="form-control" required>
+                        <input id="pf_datetime_form_start" type="hidden" name="pf_time_start" class="form-control" required>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                         <div class="form-group">
-                            <label>종료 시간</label>
-                            <div class="input-group bootstrap-timepicker timepicker">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                <input id="timepicker2" type="text" class="form-control input-small" name="pf_time_end">
-                            </div>
-                            <script>
-                                $('#timepicker2').timepicker();    
-                            </script>
-                        </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <label for="pf_time_end">종료 시간</label>
+                        <input id="pf_datetime_input_end" type="text" class="form-control" required>
+                        <input id="pf_datetime_form_end" type="hidden" name="pf_time_end" class="form-control" required>
                     </div>
-                </div>
-                <br>
-                
-                    <div class="form-group">
-                        <label>공연 날짜</label> 
-                    </div>
-                    <div id='sandbox-container'>
-                        <input type='hidden' id="dt_due" name="dt_due">
-                    </div>
-                    <script>
-                        $('#sandbox-container').datepicker({
-                            // datepicker option
-                            format: "yyyy/mm/dd",
-                            language: "kr",
-                            todayHighlight: true
-                        }).on('changeDate', function(e){
-                          $('#dt_due').val(e.format('yyyy/mm/dd'));
-                        });
-                    </script>
-                    <br>
-                    <br>
+                        
                     <div class="form-group" placeholder="공연 세부 설명">
                         <label>공연 설명</label>
                         <textarea class="form-control" rows="4" name="pf_infor" required></textarea>
@@ -368,6 +333,35 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.when(
+      $.getScript( "/datetimepicker/jquery.datetimepicker.js" ),
+      $.Deferred(function( deferred ){
+        $( deferred.resolve );
+      })
+    ).done(function(){
+      var options_start = {
+        lang:'ko',
+        step:10,
+        onChangeDateTime: function(currentDateTime) {
+          currentDateTime.setSeconds(0);
+          $('#pf_datetime_form_start').val(currentDateTime);
+        }
+      };
+      var options_end = {
+        lang:'ko',
+        step:10,
+        onChangeDateTime: function(currentDateTime) {
+          currentDateTime.setSeconds(0);
+          $('#pf_datetime_form_end').val(currentDateTime);
+        }
+      }
+      $("#pf_datetime_input_start").datetimepicker(options_start);
+      $("#pf_datetime_input_end").datetimepicker(options_end);
+    });
+  });
+</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -383,7 +377,6 @@ $(document).ready(function(){
         $.getScript('/js/json2.js'),
         $.getScript('/js/moment-2.5.1.js'),
         $.getScript('/js/fileinput.min.js'),
-        $.getScript('/js/bootstrap-datepicker.js'),
         $.getScript('/js/add_check.js'),
         $.Deferred(function( deferred ){
               $( deferred.resolve );

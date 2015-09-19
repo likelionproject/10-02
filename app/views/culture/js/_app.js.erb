@@ -4,6 +4,7 @@
     // Custom options for map
     var options = {
             zoom : 13,
+            
             mapTypeId : 'Styled',
             minZoom : 9,
             disableDefaultUI: true,
@@ -16,6 +17,7 @@
             }
         };
     var styles = [{
+    
         stylers : [ {
             hue : "#cccccc"
         }, {
@@ -96,6 +98,7 @@
                 ),
                 draggable: false,
                 animation: google.maps.Animation.DROP,
+                
             });
             var infoboxContent = '<div class="infoW">' +
                                     '<div class="propImg">' +
@@ -109,13 +112,9 @@
                                         '<div class="propTitle">' + prop.title + '</div>' +
                                         //'<div class="propAddress">' + prop.address + '</div>' +
                                     '</div>' +
-                                    '<div class="propRating">' +
-                                        '<span class="fa fa-star"></span>' +
-                                        '<span class="fa fa-star"></span>' +
-                                        '<span class="fa fa-star"></span>' +
-                                        '<span class="fa fa-star"></span>' +
-                                        '<span class="fa fa-star-o"></span>' +
-                                    '</div>' +
+                                    
+                                    '<br>' +
+                                    '<br>' +
                                     '<ul class="propFeat">' +
                                         //'<li><span class="fa fa-moon-o"></span> ' + prop.bedrooms + '</li>' +
                                         //'<li><span class="icon-drop"></span> ' + prop.bathrooms + '</li>' +

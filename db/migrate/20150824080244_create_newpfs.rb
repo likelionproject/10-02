@@ -11,9 +11,8 @@ class CreateNewpfs < ActiveRecord::Migration
       t.string :pf_add_lng  # 경도
       t.string :pf_image    # 이미지 파일
       
-      t.date :pf_date       # 날짜
-      t.string :pf_time_start     # 시작시간
-      t.string :pf_time_end       # 끝나는시간
+      t.datetime :pf_time_start     # 시작시간
+      t.datetime :pf_time_end       # 끝나는시간
       
       t.integer :performanceinfo_id # 공연팀 프로필 id
       

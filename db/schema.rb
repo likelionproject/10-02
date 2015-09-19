@@ -22,19 +22,18 @@ ActiveRecord::Schema.define(version: 20150903071028) do
   end
 
   create_table "newpfs", force: :cascade do |t|
-    t.string  "pf_title"
-    t.string  "pf_add_br"
-    t.text    "pf_infor"
-    t.string  "pf_address"
-    t.string  "pf_address_sub"
-    t.string  "pf_add_lat"
-    t.string  "pf_add_lng"
-    t.string  "pf_image"
-    t.date    "pf_date"
-    t.string  "pf_time_start"
-    t.string  "pf_time_end"
-    t.integer "performanceinfo_id"
-    t.integer "pf_kind"
+    t.string   "pf_title"
+    t.string   "pf_add_br"
+    t.text     "pf_infor"
+    t.string   "pf_address"
+    t.string   "pf_address_sub"
+    t.string   "pf_add_lat"
+    t.string   "pf_add_lng"
+    t.string   "pf_image"
+    t.datetime "pf_time_start"
+    t.datetime "pf_time_end"
+    t.integer  "performanceinfo_id"
+    t.integer  "pf_kind"
   end
 
   create_table "performanceinfos", force: :cascade do |t|

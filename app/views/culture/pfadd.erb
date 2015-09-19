@@ -44,19 +44,13 @@
                 </div>
                 <div class="clearfix"></div>
             </a>
-            
-            
             <div class="dropdown-menu pull-right userMenu" role="menu">
                 <div class="mobAvatar">
                     <img class="avatar mobAvatarImg" src="/images/performance.png" alt="avatar">
                     <div class="mobAvatarName">사용자 이름</div>
                 </div>
-                
-                
-                
-                
-                
                 <ul>
+                    <li><a href="#ttings">설정<li>
                     
                     <% if current_user.typenum == 0 %>
                         <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
@@ -82,10 +76,6 @@
                     <li><%= link_to "로그아웃", destroy_user_session_path %></li>
                 </ul>
             </div>
-            
-            
-            
-            
         <% end %>
     </div>
     <!--맨위에 알람하고 사용자 설정 끝-->
@@ -235,7 +225,7 @@
                             </div>
                             <h2> <%= x.team_name %> </h2>
                             <br>
-                            <div class="cardAddress"><span class="glyphicon glyphicon-zoom-in"></span> <%= x.team_loca %></div>
+                            <div class="cardAddress"><span class="glyphicon glyphicon-zoom-in"></span> 설명: <%= x.team_loca %></div>
                             <div class="cardAddress"><span class="fa fa-star-o"></span> 장르: <%= x.team_kind %></div>
                             <!--별점-->
                             
