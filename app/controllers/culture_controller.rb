@@ -56,6 +56,7 @@ class CultureController < ApplicationController
         
         ## perform a paginated query: 
         @articles = Newpf.paginate(:page => params[:page], :per_page => 8).order('pf_time_start ASC')
+        @markers = Newpf.all
         
         # 세션이 존재하는지 여부 확인
         if current_user.nil?

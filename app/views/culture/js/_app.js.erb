@@ -49,7 +49,7 @@
     
     // json for properties markers on map 마커 성격 지정
     var props = [];
-    <% @articles.each do |a| %>
+    <% @markers.each do |a| %>
         props.push({
             title : "<%= a.pf_title %>",
             image : "<%= a.pf_image %>",
