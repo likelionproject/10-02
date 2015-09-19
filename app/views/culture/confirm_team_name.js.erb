@@ -1,0 +1,20 @@
+/* 팀 이름 중복 검색 */
+$(document).ready(function(){
+    var confirmTooltip = $('#perf_name').tooltip();
+    
+    $('#perf_name').change(function(){
+        $.ajax({
+           url:'/culture/confirm_team_name', //Defined in your routes file
+           data:(
+             'perf_name=' + $('#perf_name').val()
+           ),
+           success: function(result){
+            <% unless @value.nil? %>
+                $('#perf_name').tooltip('open');
+            <% else %>
+                $('#perf_name').tooltip('close');
+            <% end %>
+           }
+        });
+    });
+});

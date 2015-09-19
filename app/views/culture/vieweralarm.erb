@@ -1,0 +1,412 @@
+
+<script>
+    $(document.body).attr("class", "notransition");
+</script>
+<link href="/css/jquery-ui.css" rel="stylesheet">
+<link href="/css/datepicker.css" rel="stylesheet">
+<!-- Header -->
+
+<div id="header">
+    <div class="logo">
+        <a href="/">
+            <span class="fa fa-home marker"></span>
+            <span class="logoText">홈</span>
+        </a>
+    </div>
+    <a href="#" class="navHandler"><span class="fa fa-bars"></span></a>
+    
+    
+    <!--맨위에 알람하고 사용자 설정-->
+    <div class="headerUserWraper">
+        <% if current_user.nil? %>
+            <a href="#" class="headerUser dropdown-toggle" data-toggle="modal" data-target="#signin">
+                <img class="avatar headerAvatar pull-left" src="/images/nologin.png" alt="avatar">
+                <div class="userTop pull-left">
+                    <span class="headerUserName">로그인</span> <span class="fa fa-angle-down"></span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        <% else %>
+            <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span></a>
+            <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
+                
+                <% if current_user.nil? %>
+                    <img class="avatar headerAvatar pull-left" src="/images/nologin.png" alt="avatar">
+                <% elsif current_user.typenum == 0 %>
+                    <img class="avatar headerAvatar pull-left" src="/images/viewer.png" alt="avatar">
+                <% elsif current_user.typenum == 1 %>
+                    <img class="avatar headerAvatar pull-left" src="/images/login.png" alt="avatar">
+                <% elsif current_user.typenum == 2 %>
+                    <img class="avatar headerAvatar pull-left" src="/images/admin.png" alt="avatar">
+                <% end %>
+                <div class="userTop pull-left">
+                    <span class="headerUserName"><%= current_user.username %></span> <span class="fa fa-angle-down"></span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            
+            
+            <div class="dropdown-menu pull-right userMenu" role="menu">
+                <div class="mobAvatar">
+                    <img class="avatar mobAvatarImg" src="/images/performance.png" alt="avatar">
+                    <div class="mobAvatarName">사용자 이름</div>
+                </div>
+                
+                
+                
+                
+                
+                <ul>
+                    
+                    <% if current_user.typenum == 0 %>
+                        <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                    <% elsif current_user.typenum == 1 %>
+                        <% if @pfid.nil? %>
+                             <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                             <li><a href="/culture/pfupload"><span class="icon-user"></span>프로필</a></li>
+                        <% else %>
+                            <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                            <li><a href="/culture/profile/<%= @pfid.id %>"><span class="icon-user"></span>프로필</a></li>
+                        <% end %>
+                    <% elsif current_user.typenum == 2 %>
+                        <% if @pfid.nil? %>
+                             <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                             <li><a href="/culture/pfupload"><span class="icon-user"></span>프로필</a></li>
+                        <% else %>
+                            <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                            <li><a href="/culture/profile/<%= @pfid.id %>"><span class="icon-user"></span>프로필</a></li>
+                        <% end %>
+                    <% end %>
+                    
+                    <li class="divider"></li>
+                    <li><%= link_to "로그아웃", destroy_user_session_path %></li>
+                </ul>
+            </div>
+            
+            
+            
+            
+        <% end %>
+    </div>
+    <!--맨위에 알람하고 사용자 설정 끝-->
+    
+    <!--맨위 알림 토글 다운-->
+    <div class="headerNotifyWraper">
+        <a href="#" class="headerNotify dropdown-toggle" data-toggle="dropdown">
+            <span class="notifyIcon icon-bell"></span>
+            <span class="counter">1</span>
+        </a>
+        <div class="dropdown-menu pull-right notifyMenu" role="menu">
+            <div class="notifyHeader">
+                <span>알림</span>
+                <a href="#" class="notifySettings icon-settings"></a>
+                <div class="clearfix"></div>
+            </div>
+            <ul class="notifyList">
+                <li>
+                    <a href="#">
+                        <div class="notifyRound notifyRound-yellow fa fa-heart-o"></div>
+                        <div class="pulse border-yellow"></div>
+                        <div class="notify pull-left">
+                            <div class="notifyName">개발 중인 기능입니다.</div>
+                            <div class="notifyTime">조금만 더 기다려주세요!</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </li>
+            </ul>
+            <a href="#" class="notifyAll">모두 보기</a>
+        </div>
+    </div>
+    <a href="#" class="mapHandler"><span class="icon-map"></span></a>
+    <div class="clearfix"></div>
+</div>
+<!--맨위에 사용자 알람 토글다운 끝-->
+
+<!--왼쪽 사이드바 설정 시작 -->
+<div id="leftSide">
+    <nav class="leftNav scrollable">
+        <div class="search">
+            <span class="searchIcon icon-magnifier"></span>
+            <input type="text" placeholder="장소 검색">
+            <div class="clearfix"></div>
+        </div>
+        <ul>
+            <li><a href="/culture/explore"><span class="navIcon icon-playlist"></span><span class="navLabel">공연 보기</span></a></li>
+            <li><a href="/culture/pfadd"><span class="navIcon icon-users"></span><span class="navLabel">공연자 보기</span></a></li>
+            
+            <% unless current_user.nil? %>
+                <% unless current_user.typenum == 0 %>
+                    <li><a href="/culture/add"><span class="navIcon icon-pin"></span><span class="navLabel">공연 등록</span></a></li>
+                    <li><a href="/culture/pfupload"><span class="navIcon icon-user-follow"></span><span class="navLabel">공연자 등록</span></a></li>
+                <% end %>
+            <% else %> 
+                <li><a href="#" data-toggle="modal" data-target="#signin"><span class="navIcon icon-user"></span><span class="navLabel">로그인</span></li>
+            <% end %>
+            
+        </ul>
+    </nav>
+</div>
+
+<div class="closeLeftSide"></div>
+<!--왼쪽 사이드바 설정 끝-->
+
+
+<!--컨텐츠 시작 지도 시작-->
+<!--지도시작-->
+<div id="wrapper">
+
+<!--지도끝-->
+    
+    <!--오른쪽 사이드바 시작-->
+    <div id="content2">
+        <div class="filter">
+            <!--필터 위아래 되는거 -->
+            <h1 class="osLight"> 관객 알림 모아보기 </h1>
+            <div class="clearfix"></div>
+            <form class="filterForm">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 formItem">
+                </div>
+                
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 formItem">
+                    <div class="formField">
+    
+                    </div>
+                </div>
+        </div>
+            
+            <!--공연장르 필터 끝-->
+        
+            <!--오른쪽 사진과 짤막한 공연정보 사이드바-->
+            <div class="resultsList">
+                <div class="row">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="panel-heading">관심 공연 모아보기</div>
+                        <div class="table-overflow">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>공연 이름</th>
+                                        <th>공연 날짜</th>
+                                        <th>공연 시간</th>
+                                        <th>상 태</th>
+                                        <th>좋아요 수</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table">
+                                    <tr>
+                                        <td><span class="userName">공연 이름 들어가기 </span></td>
+                                        <td>공연 날짜 들어 가기</td>
+                                        <td>공연 시간 들어 가기</td>
+                                        <td><span class="label label-danger">공연 중</span></td>
+                                        <td><span class="icon-heart text-red"></span> 54(좋아요수)</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-xs btn-round btn-o btn-green dropdown-toggle" data-toggle="dropdown"><span class="fa fa-frown-o"></span> 좋아요 취소하기</a>
+                                                <ul class="dropdown-menu pull-right" role="menu">
+                                                    <li><a href="#">공연 정보 수정</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">공연 취소하기</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                    
+                                </tbody>
+                                
+                                <tbody class="table">
+                                    <tr>
+                                        <td><span class="userName">공연 이름 들어가기 </span></td>
+                                        <td>공연 날짜 들어 가기</td>
+                                        <td>공연 시간 들어 가기</td>
+                                        <td><span class="label label-warning">공연 종료</span></td>
+                                        <td><span class="icon-heart text-red"></span> 54(좋아요수)</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-xs btn-round btn-o btn-green dropdown-toggle" data-toggle="dropdown"><span class="fa fa-frown-o"></span> 좋아요 취소하기</a>
+                                                <ul class="dropdown-menu pull-right" role="menu">
+                                                    <li><a href="#">공연 정보 수정</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">공연 취소하기</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">&nbsp;&nbsp;관심 아티스트 다가오는 공연</div>
+                        <div class="row tableContainer">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                <div class="btn-group pull-right mb5">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-o btn-gray dropdown-toggle" data-toggle="dropdown">
+                                        1-50 of 121
+                                        <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li class="disabled"><a href="#">최근 순</a></li>
+                                            <li><a href="#">오래된 순</a></li>
+                                        </ul>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-gray"><span class="fa fa-angle-left"></span></button>
+                                    <button type="button" class="btn btn-sm btn-gray"><span class="fa fa-angle-right"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-overflow">
+                            <table class="table" id="inboxTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10px;"><input type="checkbox"></th>
+                                        <th style="width:10px;"><span class="fa fa-star-o"></span></th>
+                                        <th><span class="fa fa-sort sortIcon"></span><span class="fa fa-caret-up sortIconAsc"></span><span class="fa fa-caret-down sortIconDesc"></span> 공연 이름</th>
+                                        <th><span class="fa fa-sort sortIcon"></span><span class="fa fa-caret-up sortIconAsc"></span><span class="fa fa-caret-down sortIconDesc"></span> 공연 위치</th>
+                                        <th><span class="fa fa-sort sortIcon"></span><span class="fa fa-caret-up sortIconAsc"></span><span class="fa fa-caret-down sortIconDesc"></span> 공연자 </th>
+                                        <th style="width:100px;">시간</th>
+                                        <th style="width:100px;">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table">
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><span class="fa fa-star-o text-yellow"></span></td>
+                                        <td> 관심아티스트 새로 올라온 공연 이름</td>
+                                        <td> 공연 위치 </td>
+                                        <td> 관심아티스트 이름</td>
+                                        <td>6:07 pm</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-xs btn-round btn-o btn-green dropdown-toggle" data-toggle="dropdown">자세히 보기</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td><span class="fa fa-star-o text-yellow"></span></td>
+                                        <td> 관심아티스트 새로 올라온 공연 이름</td>
+                                        <td> 공연 위치 </td>
+                                        <td> 관심아티스트 이름</td>
+                                        <td> 공연 시간</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="btn btn-xs btn-round btn-o btn-green dropdown-toggle" data-toggle="dropdown">자세히 보기</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                
+                            <!--오른쪽 사이드바 공연 사진 설명 끝-->
+                
+                <!--오른쪽 사이드바 밑에 페이지 번호 -->
+
+                <!--오른쪽 사이드바 밑에 페이지 번호 끝-->
+            </div>
+        </div>
+        
+        
+       
+        
+    </div>
+    <div class="clearfix"></div>
+
+<!--오른쪽 사이드바 끝-->
+
+<!--로그인 팝업 뜨는거 -->
+<div class="modal fade" id="signin" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="signinLabel">로그인</h4>
+            </div>
+            <div class="modal-body">
+                
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), role: "form") do |f| %>
+                <div class="field">
+                  <div class="form-group">
+                    <%= f.text_field :username, autofocus: true, placeholder: "아이디", class: "form-control"  %>
+                  </div>
+                </div>
+              
+                <div class="field">
+                  <div class="form-group">
+                    <%= f.password_field :password, autocomplete: "off", placeholder: "비밀번호", class: "form-control" %>
+                  </div>
+                </div>
+              
+                <% if devise_mapping.rememberable? -%>
+                  <div class="field">
+                    <div class="form-group">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label : %>
+                    </div>
+                  </div>
+                <% end %>
+              
+                <div class="actions">
+                  <div class="form-group">
+                    <%= f.submit "로그인", class: "btn btn-lg btn-green", style: "width: 100%" %>
+                  </div>
+                </div>
+              <% end %>             
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript'>
+$(document).ready(function(){
+    $.when(
+        $.getScript('/js/jquery-ui.min.js'),
+        $.getScript('/js/jquery-ui-touch-punch.js'),
+        $.getScript('/js/jquery.placeholder.js'),
+        $.getScript('/js/jquery.touchSwipe.min.js'),
+        $.getScript('/js/jquery.slimscroll.min.js'),
+        $.getScript('/js/jquery.tagsinput.min.js'),
+        $.Deferred(function( deferred ){
+              $( deferred.resolve );
+        })
+    ).done(function(){
+        $.getScript('/js/team_search.js');
+    });
+    $.when(
+        $.getScript('/js/bootstrap-datepicker.js'),
+        $.Deferred(function( deferred ){
+              $( deferred.resolve );
+        })
+    ).done(function(){
+        $.getScript('/js/app.js');
+        
+    });
+});
+</script>

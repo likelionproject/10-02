@@ -1,0 +1,396 @@
+<script>
+    $(document.body).attr("class", "notransition");
+</script>
+
+<link href="/css/jquery-ui.css" rel="stylesheet">
+<link href="/css/datepicker.css" rel="stylesheet">
+<!-- Header -->
+
+<div id="header">
+    <div class="logo">
+        <a href="/">
+            <span class="fa fa-home marker"></span>
+            <span class="logoText">홈</span>
+        </a>
+    </div>
+    <a href="#" class="navHandler"><span class="fa fa-bars"></span></a>
+    
+    <!--맨위 검색바 시작-->
+    <div class="search">
+        <span class="searchIcon icon-magnifier"></span>
+        <input type="text" placeholder="장소 검색">
+    </div>
+    <!--맨위 검색바 끝-->
+    
+    <!--맨위에 알람하고 사용자 설정-->
+    <div class="headerUserWraper">
+        <% if current_user.nil? %>
+            <a href="#" class="headerUser dropdown-toggle" data-toggle="modal" data-target="#signin">
+                <img class="avatar headerAvatar pull-left" src="/images/nologin.png" alt="avatar">
+                <div class="userTop pull-left">
+                    <span class="headerUserName">로그인</span> <span class="fa fa-angle-down"></span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+        <% else %>
+            <a href="#" class="userHandler dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span></a>
+            <a href="#" class="headerUser dropdown-toggle" data-toggle="dropdown">
+                
+                <% if current_user.nil? %>
+                    <img class="avatar headerAvatar pull-left" src="/images/nologin.png" alt="avatar">
+                <% elsif current_user.typenum == 0 %>
+                    <img class="avatar headerAvatar pull-left" src="/images/viewer.png" alt="avatar">
+                <% elsif current_user.typenum == 1 %>
+                    <img class="avatar headerAvatar pull-left" src="/images/login.png" alt="avatar">
+                <% elsif current_user.typenum == 2 %>
+                    <img class="avatar headerAvatar pull-left" src="/images/admin.png" alt="avatar">
+                <% end %>
+                <div class="userTop pull-left">
+                    <span class="headerUserName"><%= current_user.username %></span> <span class="fa fa-angle-down"></span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            
+            
+            <div class="dropdown-menu pull-right userMenu" role="menu">
+                <div class="mobAvatar">
+                    <img class="avatar mobAvatarImg" src="/images/performance.png" alt="avatar">
+                    <div class="mobAvatarName">사용자 이름</div>
+                </div>
+                
+                
+                
+                
+                
+                <ul>
+                    
+                    <% if current_user.typenum == 0 %>
+                        <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                    <% elsif current_user.typenum == 1 %>
+                        <% if @pfid.nil? %>
+                             <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                             <li><a href="/culture/pfupload"><span class="icon-user"></span>프로필</a></li>
+                        <% else %>
+                            <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                            <li><a href="/culture/profile/<%= @pfid.id %>"><span class="icon-user"></span>프로필</a></li>
+                        <% end %>
+                    <% elsif current_user.typenum == 2 %>
+                        <% if @pfid.nil? %>
+                             <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                             <li><a href="/culture/pfupload"><span class="icon-user"></span>프로필</a></li>
+                        <% else %>
+                            <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
+                            <li><a href="/culture/profile/<%= @pfid.id %>"><span class="icon-user"></span>프로필</a></li>
+                        <% end %>
+                    <% end %>
+                    
+                    <li class="divider"></li>
+                    <li><%= link_to "로그아웃", destroy_user_session_path %></li>
+                </ul>
+            </div>
+            
+            
+            
+            
+        <% end %>
+    </div>
+    <!--맨위에 알람하고 사용자 설정 끝-->
+    
+    <!--맨위 알림 토글 다운-->
+    <!--공연자 알람 지우기-->
+    <!--<div class="headerNotifyWraper">-->
+    <!--    <a href="#" class="headerNotify dropdown-toggle" data-toggle="dropdown">-->
+    <!--        <span class="notifyIcon icon-bell"></span>-->
+    <!--        <span class="counter">5</span>-->
+    <!--    </a>-->
+    <!--    <div class="dropdown-menu pull-right notifyMenu" role="menu">-->
+    <!--        <div class="notifyHeader">-->
+    <!--            <span>알림</span>-->
+    <!--            <a href="#" class="notifySettings icon-settings"></a>-->
+    <!--            <div class="clearfix"></div>-->
+    <!--        </div>-->
+    <!--        <ul class="notifyList">-->
+    <!--            <li>-->
+    <!--                <a href="#">-->
+    <!--                    <div class="notifyRound notifyRound-yellow fa fa-heart-o"></div>-->
+    <!--                    <div class="pulse border-yellow"></div>-->
+    <!--                    <div class="notify pull-left">-->
+    <!--                        <div class="notifyName">관심아티스트 누구누구 공연입니다</div>-->
+    <!--                        <div class="notifyTime">2 시간 후</div>-->
+    <!--                    </div>-->
+    <!--                    <div class="clearfix"></div>-->
+    <!--                </a>-->
+    <!--            </li>-->
+    <!--            <li>-->
+    <!--                <a href="#">-->
+    <!--                    <div class="notifyRound notifyRound-yellow fa fa-heart-o"></div>-->
+    <!--                    <div class="pulse border-yellow"></div>-->
+    <!--                    <div class="notify pull-left">-->
+    <!--                        <div class="notifyName">관심아티스트 누구누구 공연입니다</div>-->
+    <!--                        <div class="notifyTime">2 시간 후</div>-->
+    <!--                    </div>-->
+    <!--                    <div class="clearfix"></div>-->
+    <!--                </a>-->
+    <!--            </li>-->
+    <!--        </ul>-->
+    <!--        <a href="#" class="notifyAll">모두 보기</a>-->
+    <!--    </div>-->
+    <!--</div>-->
+    
+    <a href="#" class="mapHandler"><span class="icon-map"></span></a>
+    <div class="clearfix"></div>
+</div>
+<!--맨위에 사용자 알람 토글다운 끝-->
+
+<!--왼쪽 사이드바 설정 시작 -->
+<div id="leftSide">
+    <nav class="leftNav scrollable">
+        <div class="search">
+            <span class="searchIcon icon-magnifier"></span>
+            <input type="text" placeholder="장소 검색">
+            <div class="clearfix"></div>
+        </div>
+        <ul>
+            <li><a href="/culture/explore"><span class="navIcon icon-playlist"></span><span class="navLabel">공연 보기</span></a></li>
+            <li><a href="/culture/pfadd"><span class="navIcon icon-users"></span><span class="navLabel">공연자 보기</span></a></li>
+            
+            <% unless current_user.nil? %>
+                <% unless current_user.typenum == 0 %>
+                    <li><a href="/culture/add"><span class="navIcon icon-pin"></span><span class="navLabel">공연 등록</span></a></li>
+                    <li><a href="/culture/pfupload"><span class="navIcon icon-user-follow"></span><span class="navLabel">공연자 등록</span></a></li>
+                <% end %>
+            <% else %> 
+                <li><a href="#" data-toggle="modal" data-target="#signin"><span class="navIcon icon-user"></span><span class="navLabel">로그인</span></li>
+            <% end %>
+            
+        </ul>
+    </nav>
+</div>
+
+<div class="closeLeftSide"></div>
+<!--왼쪽 사이드바 설정 끝-->
+
+
+<!--오른쪽 컨텐츠 시작-->
+<div id="wrapper">
+    <div id="mapView" class="mob-min"><div class="mapPlaceholder"><span class="fa fa-spin fa-spinner"></span> 지도를 불러오는 중입니다</div></div>
+    <div id="content" class="mob-max">
+        <div class="singleTop whiteBg">
+            <div class="row mb20">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb20">
+                    <div class="row">
+                        <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3">
+                        </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="figure">
+                                <img src="<%=@pfid.team_pic %>" alt="image">
+                                </div>
+                                
+                            </div>
+                            <br>
+                      
+                        <script>
+                            $(document).ready(function(){
+                                $("#profile_like").click(function(){
+                                    $.get("/culture/profile_like/?pfid=<%=@pfid.id%>",
+                                        function(data, status){
+                                            location.reload();
+                                    });
+                                });
+                            });
+                        </script>
+                    </div>
+                    
+                    
+                    
+                    <ul class="pc-stats">
+                        <li><span><%=@pfid.get_likes(:vote_scope => 'interest').size%></span> 관심아티스트 등록 수 </li>
+                        <li><span><%=@pfid.newpfs.size%></span>공연 수</li>
+                        <li><span>1</span>공연 취소 수</li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 pb20">
+                    <div class="pc-about osLight">팀 이름</div>
+                    <div class="pb20"><%= @pfid.team_name %></div>
+                </div>
+        
+            
+
+                <div class="col-md-6 pb20">
+                    <div class="pc-about osLight">장르 </div>
+                    <div class="pb20"><%= @pfid.team_kind %></div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 pb20">
+                    <div class="pc-about osLight">10자 소개 </div>
+                    <div class="pb20"><%= @pfid.team_loca %></div>
+                </div>
+                
+                <div class="col-md-6 pb20">
+                    <div class="pc-about osLight"> SNS </div>
+                    <div class="pb20"><div class="pc-social"><a href="<%= @pfid.team_fb %>" class="btn btn-icon btn-facebook"><span class="fa fa-facebook"></span></a> <a href="<%= @pfid.team_tw %>" class="btn btn-icon btn-twitter"><span class="fa fa-twitter"></span></a> <a href="<%= @pfid.team_blog %>" class="btn btn-icon btn-google"><span class="fa fa-google-plus"></span></a></div></div>
+                </div>
+                
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-6 pb20">
+                    <div class="pc-about osLight">팀 소개</div>
+                    <div class="pb20"> <%= @pfid.team_info %></div>
+                </div>
+                
+                
+                
+                
+                
+                <div class="col-md-6 pb20">
+                    
+                    <div class="pb20"><a id="profile_like" class="btn btn-o btn-danger" data-toggle="tooltip" data-tooltip-class="magenta" data-placement="right" title="" data-original-title="Tooltip on right">관심 아티스트 등록</a></div>
+                </div>
+                
+            </div>
+            <br>
+            <% unless current_user.nil? %>
+                <% if current_user.id === @pfid.user_id || current_user.typenum == 2 %>            
+                    <a href="/culture/pf_update/<%= @pfid.id %>" class="btn btn-round btn-primary">수정</a>
+                    <a href="#" data-toggle="modal" data-target="#remove_alert" class="btn btn-round btn-danger">삭제</a>
+                <% else %>
+                <% end %>
+            <% end %>
+                                        
+        </div>
+        
+        <div class="rightContainer">
+            <h3>이전 공연</h3>
+            <div class="row">
+                <% @pfid.newpfs.each do |p| %>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <a href="/culture/single/<%=p.id%>" class="card">
+                        <div class="figure">
+                            <img src="<%=p.pf_image%>" alt="image" width="200px" height="200px">
+                            <div class="figView"><span class="icon-eye"></span></div>
+                            <div class="figType">공연 종료</div>
+                        </div>
+                        
+                        <h2><%=p.pf_title%></h2>
+                        <div class="cardAddress"><span class="icon-pointer"></span><%=p.pf_address_sub%></div>
+                        <div class="cardRating">
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            (123)
+                        </div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+                <% end %>
+            </div>
+            
+            <!--밑에 오른쪽 공연정보 페이지 넘기는거-->
+            <ul class="pagination">
+                <li class="disabled"><a href="#"><span class="fa fa-angle-left"></span></a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><span class="fa fa-angle-right"></span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<!--삭제 뜨는거-->
+<div class="modal fade" id="remove_alert" role="dialog" aria-labelledby="remove_alertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <center>정말로 삭제하시겠습니까?</center>
+                
+            </div>
+            <div class="modal-body">
+                <center><a href="/culture/pf_delete/<%= @pfid.id %>"><button type="button" class="btn btn-primary">OK</button></a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button></center>                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--로그인 팝업 뜨는거 -->
+<div class="modal fade" id="signin" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="signinLabel">로그인</h4>
+            </div>
+            <div class="modal-body">
+                
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), role: "form") do |f| %>
+                <div class="field">
+                  <div class="form-group">
+                    <%= f.text_field :username, autofocus: true, placeholder: "아이디", class: "form-control"  %>
+                  </div>
+                </div>
+              
+                <div class="field">
+                  <div class="form-group">
+                    <%= f.password_field :password, autocomplete: "off", placeholder: "비밀번호", class: "form-control" %>
+                  </div>
+                </div>
+              
+                <% if devise_mapping.rememberable? -%>
+                  <div class="field">
+                    <div class="form-group">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :로그인유지 %>
+                    </div>
+                  </div>
+                <% end %>
+              
+                <div class="actions">
+                  <div class="form-group">
+                    <%= f.submit "로그인", class: "btn btn-lg btn-green", style: "width: 100%" %>
+                  </div>
+                </div>
+              <% end %>             
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--모달 종료-->
+<script type='text/javascript'>
+$(document).ready(function(){
+    $.when(
+        $.getScript('/js/jquery-ui.min.js'),
+        $.getScript('/js/jquery-ui-touch-punch.js'),
+        $.getScript('/js/bootstrap-datepicker.js'),
+        $.getScript('/js/jquery.placeholder.js'),
+        $.getScript('/js/jquery.touchSwipe.min.js'),
+        $.getScript('/js/jquery.slimscroll.min.js'),
+        $.getScript('/js/jquery.tagsinput.min.js'),
+        $.getScript('/js/json2.js'),
+        $.getScript('/js/underscore.js'),
+        $.getScript('/js/moment-2.5.1.js'),
+        $.getScript('/js/jquery.visible.js'),
+        $.Deferred(function( deferred ){
+              $( deferred.resolve );
+        })
+    ).done(function(){
+        <%= render :partial => 'culture/js/app.js' %>
+    });
+    
+});
+    
+</script>

@@ -1,0 +1,342 @@
+<!-- 메인페이지 -->
+<script>
+   $(document.body).attr("class", "notransition no-hidden"); 
+</script>
+<!-- 슬라이드 이미지 들어갈 곳-->
+    <div id="hero-container">
+
+        <div id="yoyo">
+            <div id="heyhey">
+                <video preload="true" autoplay="autoplay" loop="loop" volume="0">
+                    <source src="https://s3-ap-southeast-1.amazonaws.com/likebucket/2.webm" type="video/webm">
+            </div>
+        </div>
+    
+    <!--로고 들어갈 곳-->
+    
+    <div class="home-header"> 
+        <div class="home-logo osLight"> <!--로고--> 뭐한대?</div>
+        <a href="#" class="home-navHandler visible-xs"><span class="fa fa-bars"></span></a>
+        <div class="home-nav">
+            <ul>
+                <li><a href="/culture/explore">공연 모아보기</a></li>
+                <li><a href="/culture/pfadd">공연자 모아보기</a></li>
+
+                
+                <% unless user_signed_in? %>
+                  <li><a href="#" data-toggle="modal" data-target="#signup">가입하기</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#signin">로그인</a></li>
+                  <li><a href="#"></a></li>
+                <% else %>
+                
+                  
+                  <li><%= link_to "로그아웃", destroy_user_session_path %></li>
+                  <% if current_user.typenum == 0 %>
+                  <li><a class="btn btn-blue">관객</a></li>
+                  
+                  <% elsif current_user.typenum == 1 %><li class="btn btn-info">공연팀</li>
+                  <% elsif current_user.typenum == 2 %><li class="btn btn-red">관리자</li>
+                  
+                  <% end %>
+                  
+                <% end %>
+                
+                <% unless current_user.nil? %>
+                    <% if @user_type != 0 %>
+                        <li><a href="/culture/add" class="btn btn-green">공연 등록</a></li>
+                    <% end %>
+                <% end %>
+
+            </ul>
+        </div>
+    </div>
+    <div class="home-caption" style="background:rgba( 0, 0, 0, 0.7)">
+        <div class="home-title">오늘은 뭐한대?</div>
+        <div class="home-subtitle">내 주변에서 열리는 <%= Newpf.count %>개의 문화정보를 만나보세요</div>
+        <a href="culture/introduce" class="btn btn-lg btn-yellow">뭐한대?! 이용방법</a>
+        <br><br>
+    </div>
+</div>
+
+<!--중간 띠 주석처리 div class="highlight">
+    <div class="h-title osLight">공연정보를 알아보세요</div>
+    <div class="h-text osLight"> 쉽게등록하고 쉽게 홍보하세요</div>
+</div-->
+
+<!--내용-->
+
+<div class="home-wrapper">
+    <div class="home-content">
+        
+        <h2 class="osLight">이번 주 인기 문화</h2>
+        <div class="row pb40">
+            <% @popular_pfs.each do |p| %>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <a href="/culture/single/<%=p.id%>" class="propWidget-2">
+                        <div class="fig">
+                            <img src="<%=p.pf_image%>" alt="<%=p.pf_title%>" width="353.328px" height="212px">
+                            <img class="blur" style="background-color:rgba(0,0,0,0.7)" alt="<%=p.pf_title%>" width="353.328px" height="212px">
+                            <div class="opac"></div>
+                            <div class="priceCap osLight"><span> <%=p.pf_title%> </span></div>
+                            
+                            <div class="figType">공연 중 </div>
+                            <h3 class="osLight"><%=p.pf_date%> <%=p.pf_time_start%>~<%=p.pf_time_end%> <br> <%=p.pf_address_sub %></h3>
+                            
+                            <div class="like_cap osLight">
+                                <span class="icon-heart"></span>
+                                <span id="like_num"><%=p.get_likes.size%></span>
+                            </div>
+                            <!--별점 들어갈 곳-->
+                            <!-- <ul class="rating">
+                                <li><span class="fa fa-star star-1"></span></li>
+                                <li><span class="fa fa-star star-2"></span></li>
+                                <li><span class="fa fa-star star-3"></span></li>
+                                <li><span class="fa fa-star-o star-5"></span></li>
+                                <li><span class="fa fa-star-o star-5"></span></li>
+                            </ul> -->                   
+                        </div>
+                    </a>
+                </div>
+            <% end %>
+        <!-- END 인기 문화 -->
+        </div>
+    </div>
+</div>
+      
+<div class="highlight">
+    <div class="h-title osLight"> 내 주변에는 놀랍도록 많은 문화가 존재하고 있습니다   </div>
+    <br> <br> 
+    <div class="h-text osLight"> 쉽게 등록하고, 쉽게 정보를 얻을 수 있습니다</div>
+</div>
+
+<!--내용-->
+<div class="home-wrapper">
+    <div class="home-content">
+        
+        <h2 class="osLight">오늘의 베스트 기대 팀</h2>
+        <div class="row pb40">
+            <% @popular_artists.each do |p| %>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <a href="/culture/profile/<%= p.id %>" class="propWidget-2">
+                    <div class="fig">
+                        <img src="<%=p.team_pic%>" alt="<%=p.team_name%>" width="353.328px" height="212px">
+                        <img class="blur" style="background-color:rgba(0,0,0,0.7)" alt="<%=p.team_name%>" width="353.328px" height="212px">
+                        <div class="opac"></div>
+                        <div class="priceCap osLight"><span><%=p.team_name%></span></div>
+                        <h3 class="osLight"><!-- 공연 타입 --></h3>
+                        <div class="address"></div>
+                        <div class="like_cap osLight">
+                            <span class="icon-heart"></span>
+                            <span id="like_num"><%=p.get_likes(:vote_scope => 'interest').size%></span>
+                        </div>
+                        <!--별점 들어갈 곳
+                        <ul class="rating">
+                            <li><span class="fa fa-star star-1"></span></li>
+                            <li><span class="fa fa-star star-2"></span></li>
+                            <li><span class="fa fa-star star-3"></span></li>
+                            <li><span class="fa fa-star star-4"></span></li>
+                            <li><span class="fa fa-star-o star-5"></span></li>
+                        </ul>-->
+                    </div>
+                </a>
+            </div>
+            <% end %>
+        </div>
+        <!-- END 베스트 기대 팀 -->
+    </div>
+</div>
+
+<!-- Footer -->
+
+<div class="home-footer">
+    <div class="home-wrapper">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                <center>
+                    <div class="osLight footer-header">뭐한대? 이야기</div>
+                    <ul class="footer-nav pb20">
+                        <li><a href="/culture/introduce"> 소개 </a></li>
+    
+                    </ul>
+                </center>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                <center>
+                    <div class="osLight footer-header">둘러보기</div>
+                    <ul class="footer-nav pb20">
+                        <li><a href="/culture/explore">공연 모아보기</a></li>
+                        <li><a href="/culture/pfadd">공연자 모아보기</a></li>
+                        
+    
+                    </ul>
+                </center>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <center>
+                    <div class="osLight footer-header">공연 등록하기</div>
+                    <ul class="footer-nav pb20">
+    
+                        <li class="footer-address osLight">
+                            <p><a href="/culture/introduce">공연 등록하는 방법</a></p>
+                        </li>
+                    </ul>
+                </center>
+            </div>
+        </div>
+        <div class="copyright">© 뭐한대?!, 2015 베타서비스.</div>
+    </div>
+</div>
+
+
+
+<!--로그인 팝업 뜨는거 -->
+<div class="modal fade" id="signin" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="signinLabel">로그인</h4>
+            </div>
+            <div class="modal-body">
+                
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), role: "form") do |f| %>
+                <div class="field">
+                  <div class="form-group">
+                    <%= f.text_field :username, autofocus: true, placeholder: "아이디", class: "form-control"  %>
+                  </div>
+                </div>
+              
+                <div class="field">
+                  <div class="form-group">
+                    <%= f.password_field :password, autocomplete: "off", placeholder: "비밀번호", class: "form-control" %>
+                  </div>
+                </div>
+              
+                <% if devise_mapping.rememberable? -%>
+                  <div class="field">
+                    <div class="form-group">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :로그인유지 %>
+                    </div>
+                  </div>
+                <% end %>
+              
+                <div class="actions">
+                  <div class="form-group">
+                    <%= f.submit "로그인", class: "btn btn-lg btn-green", style: "width: 100%" %>
+                  </div>
+                </div>
+              <% end %>
+              
+              
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--회원가입 뜨는거-->
+<div class="modal fade" id="signup" role="dialog" aria-labelledby="signupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="signupLabel">회원가입</h4>
+            </div>
+            <div class="modal-body">
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {id: "sign_up_form"}) do |f| %>
+                  <%= devise_error_messages! %>
+                
+                  <div class="field">
+                      <div class="form-group">
+                          <%= f.text_field :username, autofocus: true, placeholder: "아이디", class: "form-control" %>
+                      </div>
+                  </div>
+                    
+                  <div class="field">
+                    <div class="form-group">
+                      <%= f.email_field :email, autofocus: true, placeholder: "이메일 주소", class: "form-control" %>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <div class="form-group">
+                      <% if @minimum_password_length %>
+                      <em>(<%= @minimum_password_length %> characters minimum)</em>
+                      <% end %><br />
+                      <%= f.password_field :password, autocomplete: "off", placeholder: "비밀번호", class: "form-control" %>
+                    </div>
+                  </div>
+                
+                  <div class="field">
+                    <div class="form-group">
+                      <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "비밀번호 확인", class: "form-control" %>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="form-group">
+                      <%= f.hidden_field :typenum, autocomplete: "off", value: "-1", id: "typenum" %>
+                    </div>
+                  </div>
+                  
+                    <div class="field">
+                        <div class="form-group"> 
+                            <div class="btn-group-justified">
+                                <button type="button" class="btn btn-lg btn-yellow" id="select_viewer" style="width: 48%; display: inline;" onclick="setViewer()">관객</button>
+                                <button type="button" class="btn btn-lg btn-red" id="select_performer" style="width: 48%; display: inline;" onclick="setPerformer()">공연팀</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                  <div class="actions">
+                    <div class="form-group">
+                      <div class="btn-group-justified">
+                          <button type="button" id="submit_button"class="btn btn-lg btn-green" onclick="isSelectedType()" style="width: 100%">회원가입</button>
+                      </div>
+                    </div>
+                  </div>
+                  <script>
+                        function setViewer(){
+                            $('#typenum').attr("value", 0);
+                        }
+                        function setPerformer(){
+                            $('#typenum').attr('value', 1);
+                        }
+                        function isSelectedType(){
+                            if ($('#typenum').val() == "-1"){
+                                alert("회원 종류를 선택해주세요. ");
+                            }
+                            else {
+                                $("#submit_button").attr("type", "submit");
+                            }
+                        }
+                    </script>
+                <% end %>
+                
+                
+                
+                <p class="help-block">이미 회원이세요? <a href="#signin" class="modal-si text-green">로그인</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $.when(
+        $.getScript('/js/jquery-ui.min.js'),
+        $.getScript('/js/jquery-ui-touch-punch.js'),
+        $.getScript('/js/jquery.placeholder.js'),
+        $.getScript('/js/jquery.touchSwipe.min.js'),
+        $.getScript('/js/jquery.visible.js'),
+        $.getScript('/js/jquery.tagsinput.min.js'),
+        $.Deferred(function( deferred ){
+              $( deferred.resolve );
+        })
+    ).done(function(){
+        $.getScript('/js/home.js');
+    });
+    
+});
+</script>
