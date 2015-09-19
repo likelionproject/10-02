@@ -137,16 +137,17 @@
       }
       
       /* 주소 등록하기 */
-      $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?latlng=" + marker.getPosition().G + "," + marker.getPosition().K + "&language=ko&sensor=false", 
-        function(data){
-          /* 정확한 data */
-          $("#address").attr("value", data.results[0].address_components[3].long_name + " " + data.results[0].address_components[2].long_name 
-          + " " + data.results[0].address_components[1].long_name + " " + data.results[0].address_components[0].long_name  );
-          /* ~길 까지  */
-          $('#input_form').append("<input type='hidden' name='new_pf_address_sub' value='" + 
-              data.results[1].address_components[2].long_name + " " + data.results[1].address_components[1].long_name + 
-              " " + data.results[1].address_components[0].long_name +"' />");
-        });
+        $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latLng.lat() + "," + latLng.lng() + "&language=ko&sensor=false&key=AIzaSyCSKQCY9A2iun_28RpyYUUmVQ-o_wZzfFY", 
+          function(data){
+            console.log(marker.getPosition().G);
+            /* 정확한 data */
+            $("#address").attr("value", data.results[0].address_components[3].long_name + " " + data.results[0].address_components[2].long_name 
+            + " " + data.results[0].address_components[1].long_name + " " + data.results[0].address_components[0].long_name  );
+            /* ~길 까지  */
+            $('#input_form').append("<input type='hidden' name='pf_address_sub' value='" + 
+                data.results[1].address_components[2].long_name + " " + data.results[1].address_components[1].long_name + 
+                " " + data.results[1].address_components[0].long_name +"' />");
+          });
     }
     
     // function that adds the markers on map
@@ -159,7 +160,7 @@
         map: map,
         animation: google.maps.Animation.DROP,
         icon: new google.maps.MarkerImage( 
-                    "/images/marker-green.png",
+                    "/images/marker-new.png",
                     null,
                     null,
                     null,

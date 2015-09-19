@@ -202,17 +202,6 @@
                     </div>
                 </div>
                 <br>
-                    </div>
-                    <script>
-                        $('#sandbox-container').datepicker({
-                            // datepicker option
-                            format: "yyyy/mm/dd",
-                            language: "kr",
-                            todayHighlight: true
-                        }).on('changeDate', function(e){
-                          $('#dt_due').val(e.format('yyyy/mm/dd'));
-                        });
-                    </script>
                     
                     <div class="form-group">
                         <label>공연 설명</label>
@@ -341,7 +330,30 @@ $(document).ready(function(){
     ).done(function(){
         <%= render :partial => 'culture/setmarker_update.js' %>
     });
+    
+    $.when(
+      $.getScript( "/datetimepicker/jquery.datetimepicker.js" ),
+      $.Deferred(function( deferred ){
+        $( deferred.resolve );
+      })
+    ).done(function(){
+      var options_start = {
+        lang:'ko',
+        step:10,
+        onChangeDateTime: function(currentDateTime) {
+          $('#pf_datetime_form_start').val(currentDateTime);
+        }
+      };
+      var options_end = {
+        lang:'ko',
+        step:10,
+        onChangeDateTime: function(currentDateTime) {
+          $('#pf_datetime_form_end').val(currentDateTime);
+        }
+      }
+      $("#pf_datetime_input_start").datetimepicker(options_start);
+      $("#pf_datetime_input_end").datetimepicker(options_end);
+    });
 });
 </script>
-<script src='/js/bootstrap-datepicker.js'></script>
 
