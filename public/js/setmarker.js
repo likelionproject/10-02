@@ -127,7 +127,7 @@
         map: map,
         animation: google.maps.Animation.DROP,
         icon: new google.maps.MarkerImage( 
-                    "/images/marker-green.png",
+                    "/images/marker-new.png",
                     null,
                     null,
                     null,
