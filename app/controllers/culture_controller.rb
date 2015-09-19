@@ -287,7 +287,7 @@ class CultureController < ApplicationController
     
     # 공연팀 단일 단위 출력
     def profile
-        
+        @markers = Newpf.all
         @articles = Newpf.where(:performanceinfo_id => params[:id])
         @pfid = Performanceinfo.find(params[:id])
         
