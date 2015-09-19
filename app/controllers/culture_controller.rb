@@ -6,8 +6,8 @@ class CultureController < ApplicationController
            @user_type = current_user.typenum # 0 => viewer, 1 => performer
         end
         
-        @popular_pfs = Newpf.all.sort_by{ |post| post.get_likes.size }.take(6).reverse
-        @popular_artists = Performanceinfo.all.sort_by{ |artist| artist.get_likes(:vote_scope => 'interest').size }.take(6).reverse
+        @popular_pfs = Newpf.all.sort_by{ |post| post.get_likes.size }.reverse.take(6)
+        @popular_artists = Performanceinfo.all.sort_by{ |artist| artist.get_likes(:vote_scope => 'interest').size }.reverse.take(6)
     end
     
     def introduce 
