@@ -172,8 +172,6 @@ class CultureController < ApplicationController
         
         @pid.pf_infor = params[:new_pf_infor]
         @pid.pf_image = params[:new_pf_image]
-        @pid.pf_date = params[:new_dt_due]
-        @pid.pf_time = params[:new_pf_time]
         @pid.pf_time_start = Time.parse(params[:pf_time_start])
         @pid.pf_time_end = Time.parse(params[:pf_time_end])
         
