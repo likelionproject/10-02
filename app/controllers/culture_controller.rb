@@ -41,11 +41,8 @@ class CultureController < ApplicationController
         hello.pf_add_lng = params[:pf_add_lng]
         hello.pf_image = params[:pf_image]
         
-        hello.pf_time_start = Time.parse(params[:pf_time_start]);
-        hello.pf_time_end = Time.parse(params[:pf_time_end]);
-        
-        hello.pf_date = params[:dt_due]
-        
+        hello.pf_time_start = Time.parse(params[:pf_time_start])
+        hello.pf_time_end = Time.parse(params[:pf_time_end])
         hello.pf_kind = params[:pf_kind].to_i
         hello.save
         
@@ -58,7 +55,7 @@ class CultureController < ApplicationController
         # 공연 record 
         
         ## perform a paginated query: 
-        @articles = Newpf.paginate(:page => params[:page], :per_page => 8).order('pf_date ASC')
+        @articles = Newpf.paginate(:page => params[:page], :per_page => 8).order('pf_time_start ASC')
         
         # 세션이 존재하는지 여부 확인
         if current_user.nil?

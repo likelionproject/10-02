@@ -1,5 +1,5 @@
-<% unless newpf.pf_date.nil? %>
-    <% if newpf.pf_date >= Date.today # 지나간 공연 배제 %>
+<% unless newpf.pf_time_start.nil? %>
+    <% if newpf.pf_time_start >= Date.today # 지나간 공연 배제 %>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <a href="/culture/single/<%= newpf.id %>" class="card">
             <div class="figure">

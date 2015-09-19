@@ -199,7 +199,7 @@
                         <div class="summaryItem">
                             <h1 class="pageTitle"><%=@pid.pf_title%></h1>
                             <br>
-                            <div class="address"><span class="glyphicon glyphicon-time"></span> 시간: <%=@pid.pf_date%> <%=@pid.pf_time_start%>~<%=@pid.pf_time_end%></div>
+                            <div class="address"><span class="glyphicon glyphicon-time"></span> 날짜 및 시간: <%= @pid.pf_time_start.strftime("%Y/%m/%d %H:%M") %>~<%= @pid.pf_time_end.strftime("%Y/%m/%d %H:%M") %></div>
                             <div class="address"><span class="icon-pointer"></span> 위치: <%=@pid.pf_address %></div>
                             <div class="address"><span class="glyphicon glyphicon-bullhorn"></span> 위치 설명: <%= @pid.pf_add_br %></div>
                             
