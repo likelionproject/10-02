@@ -59,13 +59,7 @@
                     <img class="avatar mobAvatarImg" src="/images/performance.png" alt="avatar">
                     <div class="mobAvatarName">사용자 이름</div>
                 </div>
-                
-                
-                
-                
-                
                 <ul>
-                    
                     <% if current_user.typenum == 0 %>
                         <li><a href="/culture/interests"><span class="icon-heart"></span>관심 아티스트</a></li>
                     <% elsif current_user.typenum == 1 %>
@@ -224,7 +218,7 @@
                             <div class="input-group">
                                 <input type="text" id="search_pf" class="form-control" placeholder="공연의 이름을 입력하세요">
                                 <span class="input-group-btn">
-                                    <button id="search_submit" class="btn btn-green">검색하기</a>
+                                    <button type="button" id="search_submit" class="btn btn-green">검색하기</a>
                                 </span>
                             </div>
                         </div>
