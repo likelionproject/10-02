@@ -305,16 +305,28 @@
 $(document).ready(function(){
     $.when(
         $.getScript('/js/jquery-ui.min.js'),
-        $.getScript('/js/jquery-ui-touch-punch.js'),
-        $.getScript('/js/jquery.placeholder.js'),
-        $.getScript('/js/jquery.touchSwipe.min.js'),
-        $.getScript('/js/jquery.visible.js'),
-        $.getScript('/js/jquery.tagsinput.min.js'),
         $.Deferred(function( deferred ){
               $( deferred.resolve );
         })
     ).done(function(){
-        $.getScript('/js/home.js');
+        $.when(
+            $.getScript('/js/jquery-ui-touch-punch.js'),
+            $.Deferred(function( deferred ){
+              $( deferred.resolve );
+            })
+        ).done(function(){
+            $.when(
+                $.getScript('/js/jquery.placeholder.js'),
+                $.getScript('/js/jquery.touchSwipe.min.js'),
+                $.getScript('/js/jquery.visible.js'),
+                $.getScript('/js/jquery.tagsinput.min.js'),
+                $.Deferred(function( deferred ){
+                    $( deferred.resolve );
+                })
+            ).done(function(){
+                $.getScript('/js/home.js');
+            });
+        });
     });
 });
 </script>
