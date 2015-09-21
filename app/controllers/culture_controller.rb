@@ -224,7 +224,7 @@ class CultureController < ApplicationController
     def category_newpf
         type_num = params[:pType]
         if type_num != "all"
-            @posts = Newpf.where(:pf_kind => type_num).order("newpfs.pf_date asc").as_json
+            @posts = Newpf.where(:pf_kind => type_num).order("newpfs.pf_time_start asc").as_json
         else
             @posts = Newpf.all.as_json
         end
@@ -238,7 +238,7 @@ class CultureController < ApplicationController
     
     # 검색 기능 json 출력
     def search
-        @posts = Newpf.search(params[:query]).order("newpfs.pf_date asc").as_json
+        @posts = Newpf.search(params[:query]).order("newpfs.pf_time_start asc").as_json
         
         respond_to do |format|
           format.html do 
