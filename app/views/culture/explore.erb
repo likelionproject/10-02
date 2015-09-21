@@ -301,27 +301,46 @@ $(document).ready(function(){
     $.when(
         $.getScript('/js/jquery-ui.min.js'),
         $.getScript('/js/jquery-ui-touch-punch.js'),
-        $.getScript('/js/bootstrap-datepicker.js'),
-        $.getScript('/js/jquery.placeholder.js'),
-        $.getScript('/js/jquery.touchSwipe.min.js'),
         $.getScript('/js/jquery.slimscroll.min.js'),
         $.getScript('/js/jquery.tagsinput.min.js'),
-        $.getScript('/js/explore_search.js'),
         $.Deferred(function( deferred ){
               $( deferred.resolve );
         })
     ).done(function(){
-        <%= render :partial => 'culture/js/app.js' %>
+        
     });
     
 });
     
 </script>
-
-<!-- <script src="/js/jquery.slimscroll.min.js"></script>
-<script src="/js/jquery-ui.min.js"></script>
-<script src="/js/jquery-ui-touch-punch.js"></script>
-<script src="/js/jquery.placeholder.js"></script>
-<script src="/js/jquery.touchSwipe.min.js"></script>
-<script src="/js/jquery.tagsinput.min.js"></script>
-<script src="/js/bootstrap-datepicker.js"></script>-->
+<script type="text/javascript">
+$(document).ready(function(){
+    $.when(
+        $.getScript('/js/jquery-ui.min.js'),
+        $.Deferred(function( deferred ){
+              $( deferred.resolve );
+        })
+    ).done(function(){
+        $.when(
+            $.getScript('/js/jquery-ui-touch-punch.js'),
+            $.Deferred(function( deferred ){
+              $( deferred.resolve );
+            })
+        ).done(function(){
+            $.when(
+                $.getScript('/js/jquery.placeholder.js'),
+                $.getScript('/js/jquery.touchSwipe.min.js'),
+                $.getScript('/js/jquery.visible.js'),
+                $.getScript('/js/jquery.tagsinput.min.js'),
+                $.getScript('/js/jquery.slimscroll.min.js'),
+                $.Deferred(function( deferred ){
+                    $( deferred.resolve );
+                })
+            ).done(function(){
+                <%= render :partial => 'culture/js/app.js' %>
+            });
+        });
+    });
+    $.getScript('/js/explore_search.js');
+});
+</script>
