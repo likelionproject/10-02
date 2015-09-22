@@ -137,8 +137,6 @@
 	
 	<!--지도 끝-->
 	<div id="content" class="mob-max">
-
-
 		<div class="rightContainer">
 			<h1>공연 등록하기</h1>
 			<form name='input_form' id='input_form' role="form" action="/culture/outputsave" method="POST" enctype="multipart/form-data">
@@ -322,33 +320,33 @@
 </script>
 
 <script type="text/javascript">
-$.getScript('/js/underscore.js');
-$.getScript('/js/json2.js');
-$.getScript('/js/moment-2.5.1.js');
-$.getScript('/js/add_check.js');
-$.getScript('/js/fileinput.min.js');
+	$.getScript('/js/underscore.js');
+	$.getScript('/js/json2.js');
+	$.getScript('/js/moment-2.5.1.js');
+	$.getScript('/js/add_check.js');
+	$.getScript('/js/fileinput.min.js');
 
-$(document).ready(function(){
-	$.when(
-		$.getScript('/js/jquery-ui.min.js'),
-		$.Deferred(function( deferred ){
-			  $( deferred.resolve );
-		})
-	).done(function(){
+	$(document).ready(function(){
 		$.when(
-			$.getScript('/js/jquery-ui-touch-punch.js'),
-			$.getScript('/js/jquery.placeholder.js'),
-			$.getScript('/js/jquery.touchSwipe.min.js'),
-			$.getScript('/js/jquery.slimscroll.min.js'),
-			$.getScript('/js/jquery.tagsinput.min.js'),
-			$.getScript('/js/jquery.visible.js'),
+			$.getScript('/js/jquery-ui.min.js'),
 			$.Deferred(function( deferred ){
 				  $( deferred.resolve );
 			})
 		).done(function(){
-			$.getScript('/js/setmarker.js');
+			$.when(
+				$.getScript('/js/jquery-ui-touch-punch.js'),
+				$.getScript('/js/jquery.placeholder.js'),
+				$.getScript('/js/jquery.touchSwipe.min.js'),
+				$.getScript('/js/jquery.slimscroll.min.js'),
+				$.getScript('/js/jquery.tagsinput.min.js'),
+				$.getScript('/js/jquery.visible.js'),
+				$.Deferred(function( deferred ){
+					  $( deferred.resolve );
+				})
+			).done(function(){
+				$.getScript('/js/setmarker.js');
+			});
 		});
 	});
-});
 </script>
 
