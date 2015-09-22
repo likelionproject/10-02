@@ -5,8 +5,8 @@ var searchPerformance = function (value){
 			$(".resultsList").empty();
 			$.getJSON("/culture/search" + "/?query=" + value, function(data, result){
 				for (var i=0; i < result.length; i++){
-				  var time_start = Date.parse(data[i].pf_time_start);
-				  var time_end = Date.parse(data[i].pf_time_end);
+				  var time_start = new Date.parse(data[i].pf_time_start);
+				  var time_end = new Date.parse(data[i].pf_time_end);
 				  
 					$(".resultsList").append("<div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>" + 
 												"<a href='/culture/single/" + data[i].id + "' class='card'>" +
@@ -40,8 +40,8 @@ $(document).ready(function(){
 					$(".resultsList").empty();
 					$.getJSON("/culture/search" + "/?query=" + $("#search_pf").val(), function(data, result){
 						for (var i=0; i < result.length; i++){
-						  var time_start = Date.parse(data[i].pf_time_start);
-						  var time_end = Date.parse(data[i].pf_time_end);
+						  var time_start = new Date.parse(data[i].pf_time_start);
+						  var time_end = new Date.parse(data[i].pf_time_end);
 						  
 							$(".resultsList").append("<div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>" + 
 														"<a href='/culture/single/" + data[i].id + "' class='card'>" +
@@ -73,8 +73,8 @@ $(document).ready(function(){
 			$(".resultsList").empty();
 			$.getJSON("/culture/search" + "/?query=" + $("#search_pf").val(), function(data, result){
 				for (var i=0; i < result.length; i++){
-				  var time_start = Date.parse(data[i].pf_time_start);
-				  var time_end = Date.parse(data[i].pf_time_end);
+				  var time_start = new Date.parse(data[i].pf_time_start);
+				  var time_end = new Date.parse(data[i].pf_time_end);
 				  
 					$(".resultsList").append("<div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>" + 
 												"<a href='/culture/single/" + data[i].id + "' class='card'>" +
@@ -106,8 +106,8 @@ $(document).ready(function(){
 				$.getJSON("/culture/category_newpf" + "/?pType=" + $("input:radio[name='pType']:checked").val(), function(data, result){
 					$(".resultsList").append("<div class='row' id='search_results'>");
 					for (var i=0; i < data.length; i++){
-						var time_start = Date.parse(data[i].pf_time_start);
-					  var time_end = Date.parse(data[i].pf_time_end);
+						var time_start = new Date.parse(data[i].pf_time_start);
+					  var time_end = new Date.parse(data[i].pf_time_end);
 					  
 						$(".resultsList").append("<div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>" + 
 													"<a href='/culture/single/" + data[i].id + "' class='card'>" +
