@@ -118,7 +118,7 @@ $(document).ready(function(){
 														"</div>" +
 														"<h2>" + data[i].pf_title + "</h2>" +
 														"<br>" +
-														"<div class='cardAddress'><span class='fa fa-clock-o'>  </span> 날짜 및 시간 : " + time_start.toLocaleString() + "~" + time_end.toLocaleString() + " </span></div>" +
+														"<div class='cardAddress'><span class='fa fa-clock-o'>  </span> 날짜 및 시간 : " + time_start.toLocaleDateString() + "~" + time_end.toLocaleDateString() + " </span></div>" +
 														"<div class='cardAddress'><span class='icon-pointer'>  </span> 위치 : " + data[i].pf_address_sub + " </div>" +
 														"<div class='cardAddress'><span class='fa fa-child'>  </span> 위치 설명 : " + data[i].pf_add_br + " </div>" +
 														"<div class='cardAddress'> 장르 : " + data[i].pf_kind + " </div>" +
